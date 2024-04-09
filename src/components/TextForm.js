@@ -43,13 +43,9 @@ export default function TextForm(props) {
     const handleInverseClick=()=>{
         setOriginalText(text);
         let newstr = "";
-        console.log(text)
         for(let char of text)
         {
             let upper = char.toUpperCase()
-            console.log(upper)
-            console.log("frdfr")
-            console.log(char)
             if(char===upper)
             {
                 newstr+=char.toLowerCase()
@@ -59,7 +55,6 @@ export default function TextForm(props) {
                 newstr+=upper
             }
         }
-        console.log(newstr)
         setText(newstr)
         props.showAlert("Converted to Inverse Text!", "success")
     }
@@ -85,26 +80,26 @@ export default function TextForm(props) {
   return (
     <>
     <div className='container' style={{color: props.mode === 'dark' ? 'white':'black'}}>
-        <h1>{props.heading}</h1>
+        <h1 className="my-4">{props.heading}</h1>
         <div className="mb-3">
-            <textarea className='form-control' id='myBox' value={text} onChange={handleOnChange} style={{backgroundColor: props.mode === 'dark' ? '#2a2929':'white' , color: props.mode === 'dark' ? 'white':'black'}} rows='10'></textarea>
+            <textarea className='form-control' id='myBox' value={text} onChange={handleOnChange} style={{backgroundColor: props.mode === 'dark' ? 'rgb(61 61 61)':'white' , color: props.mode === 'dark' ? 'white':'black'}} rows='10'></textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={handleOrgClick}>Original Text</button>
-        <button className="btn btn-primary mx-2" onClick={handleUpClick}>UPPERCASE</button>
-        <button className="btn btn-primary mx-2" onClick={handleLoClick}>lowercase</button>
-        <button className="btn btn-primary mx-2" onClick={handleCapitalClick}>Capital Case</button>
-        <button className="btn btn-primary mx-2" onClick={handleInverseClick}>InVErSE Case</button>
-        <button className="btn btn-primary mx-2" onClick={handleCopy}>Copy Text</button>
-        <button className="btn btn-primary mx-2" onClick={handleClrClick}>Clear</button>
-        <button className="btn btn-primary mx-2" onClick={handleOnClickSpeech}>Text Speech</button>
+        <button disabled={text.length===0}  className="btn btn-primary mx-2 my-1" onClick={handleOrgClick}>Original Text</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleUpClick}>UPPERCASE</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleLoClick}>lowercase</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleCapitalClick}>Capital Case</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleInverseClick}>InVErSE Case</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleCopy}>Copy Text</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleClrClick}>Clear</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleOnClickSpeech}>Text Speech</button>
 
     </div>
     <div className="container my-3" style={{color: props.mode === 'dark' ? 'white':'black'}}>
         <h2>Your text Summary</h2>
-        <p>{text.split(" ").length} <b>Words</b> And {text.length} <b>Character</b ></p>
-        <p>{0.008 * text.split(" ").length} Minutes Read</p>
+        <p>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length} <b>Words</b> And {text.length} <b>Character</b ></p>
+        <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes Read</p>
         <h2>Preview</h2>
-        <p>{text.length>0?text:"Enter something in the textbox"}</p>
+        <p>{text.length>0?text:"Nothing to Preview"}</p>
     </div>
     </>
   )
