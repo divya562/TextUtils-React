@@ -12,7 +12,6 @@ export default function TextForm(props) {
 
     const handleUpClick=()=>{
         // console.log("click")
-        // setText("heelllooooo")
         setOriginalText(text);
         const newText = text.toUpperCase()
         setText(newText)
@@ -77,6 +76,11 @@ export default function TextForm(props) {
         setText(newText)
         props.showAlert("Text Clear", "success")
     }
+    const handleOnClickSpeech=()=>{
+        let msg = new SpeechSynthesisUtterance();
+        msg.text = text;
+        window.speechSynthesis.speak(msg);
+    }
     
   return (
     <>
@@ -92,6 +96,7 @@ export default function TextForm(props) {
         <button className="btn btn-primary mx-2" onClick={handleInverseClick}>InVErSE Case</button>
         <button className="btn btn-primary mx-2" onClick={handleCopy}>Copy Text</button>
         <button className="btn btn-primary mx-2" onClick={handleClrClick}>Clear</button>
+        <button className="btn btn-primary mx-2" onClick={handleOnClickSpeech}>Text Speech</button>
 
     </div>
     <div className="container my-3" style={{color: props.mode === 'dark' ? 'white':'black'}}>
